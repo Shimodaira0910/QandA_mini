@@ -4,7 +4,7 @@ class QuestionsController < ApplicationController
   end
   
   #質問詳細ページ表示
-  def detail
+  def show
   end
   
   #質問の作成
@@ -13,7 +13,11 @@ class QuestionsController < ApplicationController
   end
   
   #質問の登録
-  def register
+  def create
+    @question = Question.new(question_params)
+    @question.save
+    #detailへリダイレクト
+    redirect_to @question
   end
   
   #質問の編集
@@ -28,4 +32,8 @@ class QuestionsController < ApplicationController
   def destroy
   end
   
+  private 
+  def question_params
+    params.require(:question).permit(:title, :name, :content)
+  end
 end
